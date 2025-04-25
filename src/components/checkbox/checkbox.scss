@@ -1,41 +1,187 @@
-.checkbox {
+
+// Variables
+$background-color: #f5f7fa;
+$white: #ffffff;
+$border-color: #e2e8f0;
+$border-color-hover: #cbd5e0;
+$text-color: #2d3748;
+$text-color-light: #a0aec0;
+$primary-color: #4299e1;
+$delete-color: #e53e3e;
+$green: #38a169;
+$shadow-color: rgba(0, 0, 0, 0.1);
+$transition: all 0.2s ease;
+
+// Base checkbox styling
+.checkbox, .checkbox-checked {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  background-color: $white;
+  border: 1px solid $border-color;
+  transition: $transition;
+  
+  &:hover {
+    border-color: $border-color-hover;
+    box-shadow: 0 2px 6px $shadow-color;
+  }
+}
+
+.checkbox-checked {
+  background-color: #f7fafc;
+  border-color: #edf2f7;
+  
+  .checkbox-content {
+    span {
+      text-decoration: line-through;
+      color: $text-color-light;
+    }
+  }
+  
+  input[type="checkbox"] {
+    &:checked + span {
+      text-decoration: line-through;
+      color: $text-color-light;
+    }
+  }
+}
+
+.checkbox-content {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 400px;
-  margin: 0 auto 5px;
+  flex-grow: 1;
   cursor: pointer;
-
-  &-content {
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    flex-wrap: nowrap;
-    padding: 5px 10px 5px 5px;
-
-    input {
-      margin-right: 5px;
+  padding: 4px 0;
+  
+  input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid $text-color-light;
+    border-radius: 50%;
+    margin-right: 12px;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    
+    &:checked {
+      background-color: $green;
+      border-color: $green;
+      
+      &:after {
+        content: "✓";
+        position: absolute;
+        color: $white;
+        font-size: 12px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
     }
-
-    &:hover {
-      background: rgb(245, 245, 245);
+    
+    &:focus {
+      box-shadow: 0 0 0 2px rgba($primary-color, 0.3);
     }
   }
+  
+  span {
+    font-size: 16px;
+    color: $text-color;
+    word-break: break-word;
+    margin-left: 8px;
+    transition: $transition;
+  }
+  
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba($primary-color, 0.2);
+    border-radius: 4px;
+  }
+}
 
-  &-delete {
-    background: rgb(200, 200, 200);
+.checkbox-actions {
+  display: flex;
+  gap: 8px;
+  
+  button {
+    background: none;
     border: none;
     cursor: pointer;
-    width: 24px;
-    height: 24px;
-    flex-shrink: 0;
-
+    padding: 6px;
+    border-radius: 4px;
+    color: $text-color-light;
+    transition: $transition;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
     &:hover {
-      background: rgb(172, 172, 172);
+      background-color: #f0f4f8;
+    }
+    
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba($primary-color, 0.3);
     }
   }
+}
 
-  &-checked {
-    text-decoration: line-through;
+.checkbox-delete {
+  &:hover {
+    color: $delete-color !important;
+    background-color: #fff5f5 !important;
+  }
+}
+
+.checkbox-edit-input {
+  flex-grow: 1;
+  border: 1px solid $border-color;
+  border-radius: 4px;
+  padding: 6px 10px;
+  font-size: 16px;
+  margin-left: 8px;
+  transition: $transition;
+  
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+    box-shadow: 0 0 0 2px rgba($primary-color, 0.2);
+  }
+}
+
+.no-todos {
+  text-align: center;
+  padding: 32px;
+  color: $text-color-light;
+  font-style: italic;
+  background-color: $white;
+  border-radius: 8px;
+  border: 1px dashed $border-color;
+  margin: 16px 0;
+}
+
+.todo-list-content {
+  margin: 16px 0;
+}
+
+@media (max-width: 600px) {
+  .checkbox, .checkbox-checked {
+    flex-direction: column;
+    align-items: flex-start;
+    
+    .checkbox-content {
+      width: 100%;
+      margin-bottom: 8px;
+    }
+    
+    .checkbox-actions {
+      width: 100%;
+      justify-content: flex-end;
+    }
   }
 }

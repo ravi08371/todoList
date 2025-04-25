@@ -18,10 +18,168 @@
     justify-content: center;
   }
 }
+.todo-list-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+.todo-filter-navbar {
+  display: flex;
+  justify-content: space-between;
+}
 
 .no-todos {
   text-align: center;
   padding: 5px 0;
   font-size: 14px;
   color: gray;
+}
+
+.todo-filters {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 12px;
+}
+
+.filter-button {
+  padding: 8px 16px;
+  background-color: #edf2f7;
+  color: #4a5568;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-button:hover {
+  background-color: #e2e8f0;
+}
+
+.filter-button.all {
+  background-color: #4299e1;
+  color: white;
+}
+
+.filter-button.completed {
+   color: white;
+  background-color: #38a169;
+}
+
+.filter-button.incomplete {
+  color: white;
+  background-color: #ed8936;
+}
+
+.todo-search {
+  padding: 8px 16px 8px 36px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+  height: 46px;
+}
+
+.todo-search:focus {
+  border-color: #63b3ed;
+  box-shadow: 0 0 0 2px rgba(99, 179, 237, 0.3);
+}
+
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 24px 0;
+  gap: 8px;
+  
+  button {
+    min-width: 36px;
+    height: 36px;
+    padding: 0 6px;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+    background-color: #ffffff;
+    color: #4a5568;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    &:hover {
+      background-color: #edf2f7;
+      border-color: #cbd5e0;
+    }
+    
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.4);
+    }
+    
+    &.active {
+      background-color: #eef068;
+      border-color: #8c8e3d;
+      color: #000;
+      font-weight: 600;
+      
+      &:hover {
+        background-color: #eaec9f;
+      }
+    }
+    
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      
+      &:hover {
+        background-color: #ffffff;
+        border-color: #e2e8f0;
+      }
+    }
+  }
+  
+  // Optional: Add previous and next buttons
+  .prev-btn, .next-btn {
+    padding: 0 12px;
+    
+    &::before {
+      content: "←";
+      font-size: 16px;
+    }
+  }
+  
+  .next-btn {
+    &::before {
+      content: "→";
+    }
+  }
+  
+  // Responsive adjustments
+  @media (max-width: 480px) {
+    gap: 4px;
+    
+    button {
+      min-width: 32px;
+      height: 32px;
+      font-size: 12px;
+    }
+  }
+}
+
+// If you want to add optional ellipsis for many pages
+.pagination-ellipsis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 0 8px;
+  color: #a0aec0;
+  font-size: 18px;
 }
