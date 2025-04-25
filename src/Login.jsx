@@ -38,6 +38,7 @@ const Login = () => {
           type="mobileNo"
           placeholder="Enter your mobileNo"
           value={mobileNo}
+          maxLength={10}
           onChange={(e) => setMobileNo(e.target.value)}
         />
       </div>
