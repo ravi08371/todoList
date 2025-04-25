@@ -1,6 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import { App } from "./app";
 import Login from "./Login";
 
@@ -16,7 +21,10 @@ const ProtectedRoute = ({ children }) => {
 const Main = () => (
   <Router>
     <Routes>
-    <Route path="/" element={<Navigate to={isAuthenticated() ? "/todos" : "/login"} />} />
+      <Route
+        path="/"
+        element={<Navigate to={isAuthenticated() ? "/todos" : "/login"} />}
+      />
       <Route path="/login" element={<Login />} />
       <Route
         path="/todos"
@@ -34,5 +42,5 @@ ReactDOM.render(
   <React.StrictMode>
     <Main />
   </React.StrictMode>,
-  document.getElementById("root"),
+  document.getElementById("root")
 );
