@@ -24,7 +24,7 @@ const Login = () => {
       // New user
       localStorage.setItem("user", JSON.stringify({ mobileNo }));
       localStorage.setItem("userPass", JSON.stringify({ password }));
-      localStorage.setItem(mobileNo, JSON.stringify([]));
+      // localStorage.setItem(mobileNo, JSON.stringify([]));
       alert("Welcome to Todo Application");
       navigate("/todos");
     }

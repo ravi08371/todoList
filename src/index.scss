@@ -95,6 +95,14 @@ $transition: all 0.2s ease;
     font-weight: 700;
     font-size: 28px;
   }
+
+ 
   
   
+}
+
+@media (max-width: 480px) {
+  .root{
+    padding: 20px;
+  }
 }

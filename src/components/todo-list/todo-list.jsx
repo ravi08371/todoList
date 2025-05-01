@@ -8,6 +8,10 @@ export const TodoList = () => {
   const [search, setSearch] = React.useState("");
   const [filter, setFilter] = React.useState("all");
   const [page, setPage] = React.useState(1);
+  const todayDate = new Date();
+  const newdate = new Date(todos?.[0]?.todoDate);
+  console.log("this is tyd date", newdate);
+  
 
   const todosPerPage = 10;
   const filteredTodos = todos?.filter((todo) => {
@@ -17,7 +21,15 @@ export const TodoList = () => {
     const matchesFilter =
       filter === "all" ||
       (filter === "completed" ? todo.checked : !todo.checked);
-    return matchesSearch && matchesFilter;
+
+      const compareDates = filter === "latest" && (
+        todos.sort((a, b) => new Date(a.todoDate) - new Date(b.todoDate))
+      );
+      
+    const oldestDates = filter === "oldest" && (
+        todos.sort((a, b) => new Date(b.todoDate) - new Date(a.todoDate))
+      );
+    return (matchesSearch && matchesFilter) || (compareDates || oldestDates);
   });
 
   const paginatedTodos = filteredTodos?.slice(
@@ -51,9 +63,11 @@ export const TodoList = () => {
     setPage(1);
   };
 
-  const handleEdit = (id, newLabel) => {
+  const handleEdit = (id, newLabel, newDate) => {
     setTodos((prev) =>
-      prev.map((todo) => (todo.id === id ? { ...todo, label: newLabel } : todo))
+      prev.map((todo) =>
+        todo.id === id ? { ...todo, label: newLabel, todoDate: newDate } : todo
+      )
     );
   };
 
@@ -63,25 +77,40 @@ export const TodoList = () => {
       <div className="todo-filter-navbar">
         <div className="todo-filters">
           <button
-            className="filter-button all"
+            className={`filter-button all ${filter === "all" && "active"}`}
             onClick={() => handleFilterChange("all")}
           >
             All
           </button>
           <button
-            className="filter-button completed"
+            className={`filter-button completed ${filter === "completed" && "active"}`}
             onClick={() => handleFilterChange("completed")}
           >
             Completed
           </button>
           <button
-            className="filter-button incomplete"
+            className={`filter-button incomplete ${filter === "incomplete" && "active"}`}
             onClick={() => handleFilterChange("incomplete")}
           >
             Incomplete
           </button>
+          
+          <button
+            className={`filter-button incomplete ${filter === "latest" && "active"}`}
+            onClick={() => handleFilterChange("latest")}
+          >
+            Latest
+          </button>
+          <button
+            className={`filter-button incomplete ${filter === "oldest" && "active"}`}
+            onClick={() => handleFilterChange("oldest")}
+          >
+            Oldest
+          </button>
+         
         </div>
-        <div>
+      </div>
+      <div>
           <input
             type="text"
             placeholder="Search tasks..."
@@ -89,7 +118,6 @@ export const TodoList = () => {
             onChange={(e) => setSearch(e.target.value)}
             className="todo-search"
           />
-        </div>
       </div>
       {paginatedTodos?.length ? (
         <div className="todo-list-content">
@@ -98,10 +126,11 @@ export const TodoList = () => {
               key={todoItem.id}
               label={todoItem.label}
               checked={todoItem.checked}
+              dueDate={todoItem.todoDate}
               onClick={() => toggleCheck(todoItem.id)}
               onKeyUp={(e) => handleKeyUp(e, todoItem.id)}
               onDelete={() => handleDelete(todoItem.id)}
-              onEdit={(newLabel) => handleEdit(todoItem.id, newLabel)}
+              onEdit={(newLabel, newDate) => handleEdit(todoItem.id, newLabel, newDate)}
             />
           ))}
         </div>
